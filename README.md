@@ -7,7 +7,7 @@ I wanted something basic that I could copy/paste and rename a few items in order
 
 Using this is quite simple. Just clone down the repo and it's a basic copy paste to your own folder.  Once you've copied it make the following changes:
 
-***ib/module.js***
+***lib/module.js***
   ~ Rename file to the name of your package.
   
 ***test/module-tests.js***
