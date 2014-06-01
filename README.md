@@ -1,5 +1,5 @@
-npm-base-package
-================
+### npm-base-package
+***
 
 A basic npm package setup with grunt, jshint and blanket coverage reports for unit tests.
 
@@ -15,3 +15,41 @@ Using this is quite simple. Just clone down the repo and it's a basic copy paste
   
 ***package.json***
   ~ Replace all instances of npm-base-package with your own, update git urls and update the entry point file reference.
+
+### Private Use
+
+There are times when you want to make a package that when used always creates a new instance of itself. Such as your typical "car" model.
+
+Example usage of the private module would be:
+
+```javascript
+// it can be instantiated multiple ways
+// declaring the class as a variable
+var carClass = require('module-private');
+// then using it
+var car = carClass(options);
+var car = new carClass(options);
+
+// just using the class by itself
+var car = require('module-private')(options);
+var car = new require('module-private')(options);
+```
+
+Each instance will be it's own.
+
+### Shared Use
+
+If you were to make helper module that once instantiated needed to be shared among many. Any changes by one caller affects all others.
+
+Example usage of the shared module would be:
+
+```javascript
+var sharedModule = require('module-shared');
+var instance1 = sharedModule(options);
+var instance2 = sharedModule(options);
+// because instance1 already "initialized" the module, the second call would just return the first one.
+
+// setting a name means all instances will share the same variable
+instance1.name = "name1";
+console.log(instance2.name); // results in "name1"
+```
