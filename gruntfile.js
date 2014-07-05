@@ -6,39 +6,26 @@ module.exports = function (grunt) {
     grunt.initConfig({
         jshint: {
             options: {
-                strict: true,
-                node: true,
-                camelcase: true,
-                unused: true,
-                bitwise: true,
-                curly: true,
-                eqeqeq: true,
-                immed: true,
-                latedef: true,
-                newcap: true,
-                noarg: true,
-                quotmark: true,
-                regexp: true,
-                undef: true,
-                trailing: true,
-                smarttabs: true,
-                globals: {
-                    describe: false,
-                    it: false,
-                    before: false,
-                    beforeEach: false,
-                    after: false,
-                    afterEach: false
-                }
+                jshintrc: true
             },
             all: [
-                'gruntfile.js',
                 'lib/**/*.js',
-                'test/**/*.js'
+                'test/**/*.js',
+                'gruntfile.js'
             ]
         },
+        jsbeautifier: {
+            files: [
+                'lib/**/*.js',
+                'test/**/*.js',
+                'gruntfile.js'
+            ],
+            options: {
+                config: './.jsbeautifyrc'
+            }
+        },
         mochaTest: {
-            moduleBDD: {
+            bdd: {
                 options: {
                     reporter: 'spec',
                     require: 'coverage/blanket'
@@ -47,7 +34,7 @@ module.exports = function (grunt) {
                     'test/**/*.js'
                 ]
             },
-            moduleBDDCoverageHTML: {
+            coverageHtml: {
                 options: {
                     reporter: 'html-cov',
                     quiet: true,
@@ -57,7 +44,7 @@ module.exports = function (grunt) {
                     'test/**/*.js'
                 ]
             },
-            moduleBDDCoverageJSON: {
+            coverageJson: {
                 options: {
                     reporter: 'json-cov',
                     quiet: true,
@@ -81,16 +68,21 @@ module.exports = function (grunt) {
             }
         },
         watch: {
-            files: [
-                'lib/**/*.js',
-                'test/**/*.js',
-                'gruntfile.js'
-            ],
-            tasks: [
-                'test',
-                'jshint'
-            ]
-        }
+            test: {
+                files: [
+                    'lib/**/*.js',
+                    'test/**/*.js',
+                    '.jsbeautifyrc',
+                    '.jshintrc',
+                    'gruntfile.js'
+                ],
+                tasks: [
+                    'jshint',
+                    'test'
+                ]
+            }
+        },
+        shell: {}
     });
 
     grunt.registerTask('test', [
@@ -98,21 +90,9 @@ module.exports = function (grunt) {
         'mochaTest'
     ]);
 
-    grunt.registerTask('bdd', [
-        'env:test',
-        'jshint',
-        'mochaTest:moduleBDD',
-        'mochaTest:moduleBDDCoverageHTML',
-        'mochaTest:moduleBDDCoverageJSON',
-        'watch'
-    ]);
-
-    grunt.registerTask('build', [
-        'env:production',
-        'jshint'
-    ]);
-
     grunt.registerTask('default', [
-        'test', 'jshint', 'watch'
+        'jshint',
+        'test',
+        'watch:test'
     ]);
 };

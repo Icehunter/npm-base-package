@@ -1,3 +1,5 @@
+/* global describe, it, beforeEach */
+
 'use strict';
 
 process.env.NODE_ENV = 'test';
@@ -15,8 +17,7 @@ describe('Private Module Tests', function () {
             try {
                 stubs[stub].restore();
             }
-            catch (err) {
-            }
+            catch (err) {}
         }
         done();
     });
@@ -36,8 +37,7 @@ describe('Private Module Tests', function () {
         describe('when calling "initializeModule"', function () {
             it('should not have an error', function (done) {
                 var x = sharedModule({
-                    mocking: {
-                    }
+                    mocking: {}
                 });
                 x.should.have.property('initializeModule');
                 should.not.exist(x.initialized);
