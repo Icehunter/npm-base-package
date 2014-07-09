@@ -9,10 +9,10 @@ Using this is quite simple. Just clone down the repo and it's a basic copy paste
 
 ***lib/module.js***
   ~ Rename file to the name of your package.
-  
+
 ***test/module-tests.js***
   ~ Rename file to match module.name-tests.js and inside ensure you are requiring the correct module name.
-  
+
 ***package.json***
   ~ Replace all instances of npm-base-package with your own, update git urls and update the entry point file reference.
 
@@ -27,17 +27,39 @@ Example usage of the private module would be:
 // declaring the class as a variable
 var carClass = require('module-private');
 // then using it
-var car = carClass(options);
-var car = new carClass(options);
+var car = carClass(options, eventHandlers);
+var car = new carClass(options, eventHandlers);
 
 // just using the class by itself
-var car = require('module-private')(options);
-var car = new require('module-private')(options);
+var car = require('module-private')(options, eventHandlers);
+var car = new require('module-private')(options, eventHandlers);
+
+// options and eventHandlers are objects
+// e.g.
+var car = require('module-private')({
+    logger: console
+}, {
+    initialized: function () {
+        console.log('ready to use');
+    }
+});
+var car = new require('module-private')({
+    logger: console
+}, {
+    initialized: function () {
+        console.log('ready to use');
+    }
+});
+
+// currently any event being subscribed to that is called immediately on setup must be subscribed to in the passed arguments
+// any other event you create after that is fine to call with car.on('someevent', fn);
 ```
 
 Each instance will be it's own.
 
 ### Shared Use
+
+Note: If anyone knows how or why I can't setup event emitter to work like the private example let me know!
 
 If you were to make helper module that once instantiated needed to be shared among many. Any changes by one caller affects all others.
 
