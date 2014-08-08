@@ -41,7 +41,7 @@ describe('Private Module Tests', function () {
                 });
                 x.should.have.property('initializeModule');
                 should.not.exist(x.initialized);
-                x.initializeModule(x);
+                x.initializeModule();
                 should.exist(x.initialized);
                 done();
             });
@@ -51,11 +51,11 @@ describe('Private Module Tests', function () {
                 instance1 = privateModule({
                     mocking: true
                 });
-                instance1.initializeModule(instance1);
+                instance1.initializeModule();
                 instance2 = privateModule({
                     mocking: true
                 });
-                instance2.initializeModule(instance2);
+                instance2.initializeModule();
                 done();
             });
             describe('if we add .name = "instance1" to the first instance', function () {
