@@ -86,12 +86,17 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('test', [
+        'jshint',
+        'jsbeautifier',
         'env:test',
-        'mochaTest'
+        'mochaTest:bdd',
+        'mochaTest:coverageHtml',
+        'mochaTest:coverageJson'
     ]);
 
     grunt.registerTask('default', [
         'jshint',
+        'jsbeautifier',
         'test',
         'watch:test'
     ]);
