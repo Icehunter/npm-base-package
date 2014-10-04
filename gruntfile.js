@@ -1,31 +1,31 @@
 'use strict';
 
 module.exports = function (grunt) {
+    require('time-grunt')(grunt);
     require('load-grunt-tasks')(grunt);
+
+    var hintableAndBeautiable = [
+        'lib/**/*.js',
+        'test/**/*.js',
+        'index.js',
+        'gruntfile.js'
+    ];
 
     grunt.initConfig({
         jshint: {
             options: {
                 jshintrc: true
             },
-            all: [
-                'lib/**/*.js',
-                'test/**/*.js',
-                'gruntfile.js'
-            ]
+            all: hintableAndBeautiable
         },
         jsbeautifier: {
-            files: [
-                'lib/**/*.js',
-                'test/**/*.js',
-                'gruntfile.js'
-            ],
+            files: hintableAndBeautiable,
             options: {
                 config: './.jsbeautifyrc'
             }
         },
         mochaTest: {
-            bdd: {
+            BDD: {
                 options: {
                     reporter: 'spec',
                     require: 'coverage/blanket'
@@ -34,7 +34,7 @@ module.exports = function (grunt) {
                     'test/**/*.js'
                 ]
             },
-            coverageHtml: {
+            coverageHTML: {
                 options: {
                     reporter: 'html-cov',
                     quiet: true,
@@ -44,7 +44,7 @@ module.exports = function (grunt) {
                     'test/**/*.js'
                 ]
             },
-            coverageJson: {
+            coverageJSON: {
                 options: {
                     reporter: 'json-cov',
                     quiet: true,
@@ -77,7 +77,6 @@ module.exports = function (grunt) {
                     'gruntfile.js'
                 ],
                 tasks: [
-                    'jshint',
                     'test'
                 ]
             }
@@ -89,14 +88,12 @@ module.exports = function (grunt) {
         'jshint',
         'jsbeautifier',
         'env:test',
-        'mochaTest:bdd',
-        'mochaTest:coverageHtml',
-        'mochaTest:coverageJson'
+        'mochaTest:BDD',
+        'mochaTest:coverageHTML',
+        'mochaTest:coverageJSON'
     ]);
 
     grunt.registerTask('default', [
-        'jshint',
-        'jsbeautifier',
         'test',
         'watch:test'
     ]);

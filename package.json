@@ -1,8 +1,8 @@
 {
     "name": "npm-base-package",
-    "version": "0.1.0",
-    "description": "npm base package with testing and coverage",
-    "main": "lib/module.js",
+    "version": "1.0.0",
+    "description": "***",
+    "main": "index.js",
     "directories": {
         "test": "test"
     },
@@ -13,16 +13,13 @@
         "type": "git",
         "url": "https://github.com/Icehunter/npm-base-package.git"
     },
+    "author": "Ryan Wilson <syndicated.life@gmail.com> (http://syndicatedlife.com/)",
+    "license": "MIT",
     "bugs": {
         "url": "https://github.com/Icehunter/npm-base-package/issues"
     },
-    "keywords": [
-        "npm",
-        "base",
-        "package"
-    ],
-    "author": "Ryan Wilson",
-    "license": "MIT",
+    "homepage": "https://github.com/Icehunter/npm-base-package",
+    "dependencies": {},
     "devDependencies": {
         "blanket": "*",
         "grunt": "*",
@@ -36,7 +33,7 @@
         "load-grunt-tasks": "*",
         "mocha": "*",
         "should": "*",
-        "sinon": "*"
-    },
-    "private": true
+        "sinon": "*",
+        "time-grunt": "*"
+    }
 }
